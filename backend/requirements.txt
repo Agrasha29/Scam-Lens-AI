@@ -1,8 +1,12 @@
+
+--extra-index-url https://download.pytorch.org/whl/cpu
+
 fastapi
 uvicorn
-easyocr
+easyocr==1.7.2
+torch==2.14.1+cpu
+torchvision==0.29.1+cpu
 pillow
 python-multipart
-
 scikit-learn
 joblib
