@@ -1,36 +1,25 @@
 
-import easyocr
 import numpy as np
 from PIL import Image
 import io
 
-# Initialize EasyOCR once when the module loads
-reader = easyocr.Reader(['en'], gpu=False)
+reader = None
 
 
 def extract_text_from_image(image_bytes: bytes) -> str:
-    try:
-        # Read image from uploaded bytes
-        image = Image.open(
-            io.BytesIO(image_bytes)
-        ).convert("RGB")
+    global reader
 
-        # Convert image into a NumPy array
-        image_array = np.array(image)
+    if reader is None:
+        import easyocr
+        reader = easyocr.Reader(['en'], gpu=False)
 
-        # Extract text using EasyOCR
-        results = reader.readtext(
-            image_array,
-            detail=0,
-            paragraph=True
-        )
+    image = Image.open(io.BytesIO(image_bytes)).convert("RGB")
+    image_array = np.array(image)
 
-        # Combine extracted text
-        extracted_text = " ".join(results)
+    results = reader.readtext(image_array)
 
-        return extracted_text.strip()
+    extracted_text = " ".join(
+        result[1] for result in results
+    )
 
-    except Exception as error:
-        raise ValueError(
-            f"Unable to extract text from image: {error}"
-        )
+    return extracted_text
