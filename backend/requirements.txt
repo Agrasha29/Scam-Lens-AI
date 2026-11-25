@@ -3,6 +3,6 @@ uvicorn
 easyocr
 pillow
 python-multipart
-pandas
+
 scikit-learn
 joblib
