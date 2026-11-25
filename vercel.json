@@ -11,9 +11,7 @@
       "entrypoint": "app.main:app",
       "functions": {
         "app/**/*.py": {
-          "includeFiles": [
-            "**/*.pyi"
-          ]
+          "includeFiles": "**/*.pyi"
         }
       }
     }
@@ -51,4 +49,3 @@
     }
   ]
 }
-
