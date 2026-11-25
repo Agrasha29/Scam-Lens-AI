@@ -3,9 +3,8 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "services": {
     "frontend": {
-      "root": "frontend/",
-      "framework": "other"
-    },
+  "root": "frontend/"
+},
     "backend": {
       "root": "backend/",
       "framework": "fastapi",
