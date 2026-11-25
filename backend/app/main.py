@@ -1,4 +1,4 @@
-
+import os
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -7,19 +7,26 @@ from fastapi import UploadFile, File
 from app.detection.ocr import extract_text_from_image
 
 
+
 app = FastAPI(
     title="ScamLens API",
     description="Suspicious Message Analysis System",
     version="1.0.0"
 )
 
+frontend_origin = os.getenv(
+    "FRONTEND_ORIGIN",
+    "http://127.0.0.1:5500"
+)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://127.0.0.1:5500",
-        "http://localhost:5500"
+        "http://localhost:5500",
+        frontend_origin
     ],
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
